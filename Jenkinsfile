@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'tomcat:latest'
         DOCKER_REGISTRY = 'docker.io'
-        REPO_URL = 'https://github.com/username/repository.git'
+        REPO_URL = 'https://github.com/sivacloudops59/devops.git'
         BRANCH = 'main'
     }
     stages {
@@ -46,7 +46,7 @@ pipeline {
                 echo 'Deploying the application...'
                 sh """
                 docker pull ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
-                docker run -d --name my-app -p 8080:8080 ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
+                docker run -d --name my-app -p 8143:8143 ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
                 """
             }
         }
