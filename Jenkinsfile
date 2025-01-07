@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'my-app:latest'
+        DOCKER_IMAGE = 'tomcat:latest'
         DOCKER_REGISTRY = 'docker.io'
         REPO_URL = 'https://github.com/username/repository.git'
         BRANCH = 'main'
