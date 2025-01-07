@@ -5,6 +5,8 @@ pipeline {
         DOCKER_REGISTRY = 'docker.io'
         REPO_URL = 'https://github.com/sivacloudops59/devops.git'
         BRANCH = 'main'
+        DOCKER_PASSWORD='Sivaji@59'
+        username= 'Sivadockerhub59'
     }
     stages {
         stage('Checkout') {
