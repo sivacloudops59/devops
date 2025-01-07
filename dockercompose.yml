@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  tomcat:
+    image: tomcat:10-jdk11-adoptopenjdk-hotspot
+    container_name: tomcat-server
+    ports:
+      - "8143:8143" # Maps port 8080 on the host to port 8080 in the container
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps # Mounts your local webapps directory
+      - ./conf:/usr/local/tomcat/conf       # Mounts your local Tomcat configuration
+    environment:
+      - JAVA_OPTS=-Xms512m -Xmx1024m       # Sets Java memory options
+    restart: always
