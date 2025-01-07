@@ -1,15 +1,11 @@
 pipeline {
-    agent any
-
+    agent {
+        docker { image 'docker:latest' }
+    }
     stages {
-        stage('Verify Branch') {
+        stage('Test Docker') {
             steps {
-                echo "$GIT_BRANCH"
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                sh(script: 'docker compose build')
+                sh 'docker --version'
             }
         }
     }
