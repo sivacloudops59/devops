@@ -48,8 +48,8 @@ pipeline {
             steps {
                 echo 'Deploying the application...'
                 sh """
-                docker pull ${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${DOCKER_IMAGE}
-                docker run -d --name my-app -p 8143:8143 ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
+                docker pull ${DOCKER_REGISTRY}/${DOCKER_ID}/${DOCKER_IMAGE}
+                docker run -d --name my-app -p 8143:8143 ${DOCKER_REGISTRY}/${DOCKER_ID}/${DOCKER_IMAGE}
                 """
             }
         }
