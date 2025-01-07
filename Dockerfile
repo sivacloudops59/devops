@@ -1,1 +1,2 @@
 
+From tomcat:latest
