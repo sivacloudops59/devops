@@ -39,7 +39,7 @@ pipeline {
                     echo ${DOCKER_PASSWORD} | docker login -u $DOCKER_ID --password-stdin 
                     
                     docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/${DOCKER_ID}/${DOCKER_IMAGE}
-                    docker push ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
+                    docker push ${DOCKER_REGISTRY}/${DOCKER_ID}/${DOCKER_IMAGE}
                     """
                 }
             }
