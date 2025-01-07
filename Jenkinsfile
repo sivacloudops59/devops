@@ -5,6 +5,8 @@ pipeline {
         DOCKER_REGISTRY = 'docker.io'
         REPO_URL = 'https://github.com/sivacloudops59/devops.git'
         BRANCH = 'main'
+        DOCKER_PASSWORD='Sivaji@59'
+        username= 'Sivadockerhub59'
     }
     stages {
         stage('Checkout') {
@@ -31,20 +33,15 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-        echo 'Pushing Docker image to registry...'
-        withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-            sh """
-            # Log in to Docker Hub
-            echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin
-
-            # Tag the Docker image
-            docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/\$DOCKER_USERNAME/${DOCKER_IMAGE}
-
-            # Push the Docker image to Docker Hub
-            docker push ${DOCKER_REGISTRY}/\$DOCKER_USERNAME/${DOCKER_IMAGE}
-            """
-        }
-    }
+                echo 'Pushing Docker image to registry...'
+                withCredentials([string(credentialsId: 'docker-credentials', variable: 'DOCKER_PASSWORD')]) {
+                    sh """
+                    echo ${DOCKER_PASSWORD} | docker login -u username --password-stdin ${DOCKER_REGISTRY}
+                    docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
+                    docker push ${DOCKER_REGISTRY}/username/${DOCKER_IMAGE}
+                    """
+                }
+            }
         }
         stage('Deploy') {
             steps {
