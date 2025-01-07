@@ -7,11 +7,6 @@ pipeline {
         BRANCH = 'main'
         DOCKER_PASSWORD='Sivaji@59'
         username= 'sivadockerhub59'
-        parameters {
-        string(name: 'DOCKER_REGISTRY', defaultValue: 'docker.io', description: 'Docker registry URL')
-        string(name: 'DOCKER_ID', defaultValue: 'your-docker-id', description: 'Docker account ID')
-        string(name: 'DOCKER_IMAGE', defaultValue: 'your-image-name:latest', description: 'Docker image name and tag')
-     }
     }
     stages {
         stage('Checkout') {
