@@ -49,7 +49,7 @@ pipeline {
                 echo 'Deploying the application...'
                 sh """
                 docker pull ${DOCKER_REGISTRY}/${DOCKER_ID}/${DOCKER_IMAGE}
-                docker run -d -p 8143:8143 tomcat
+                docker run -d -p 8143:8080 tomcat
                 """
             }
         }
