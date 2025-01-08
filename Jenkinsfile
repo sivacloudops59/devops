@@ -7,6 +7,7 @@ pipeline {
         BRANCH = 'main'
         DOCKER_PASSWORD='Sivaji@59'
         username= 'sivadockerhub59'
+        def DOCKER_ID = "your-docker-id"
     }
     stages {
         stage('Checkout') {
