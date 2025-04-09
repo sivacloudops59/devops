@@ -9,7 +9,6 @@ pipeline {
     environment {
         GITHUB_TOKEN = credentials('github_token')       // Jenkins credential ID
         GITHUB_USERNAME = 'sivacloudops59'            // hardcoded or env var
-        GITHUB_PWD=  'M#essileo78'
     }
 
     stages {
