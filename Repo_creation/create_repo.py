@@ -14,7 +14,7 @@ repo_name = sys.argv[2]
 
 url = f"https://github.com/sivacloudops59"
 headers = {
-    "Authorization": f'Bearer {github_token}',
+    "Authorization": f'Bearer {GITHUB_TOKEN}',
     "Accept": "application/vnd.github+json"
 }
 data = {
