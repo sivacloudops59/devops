@@ -10,14 +10,14 @@ if len(sys.argv) != 5:
     print("Usage: python create_branch.py <github_token> <repo_name> <new_branch_name> <base_branch>")
     sys.exit(1)
 
-token = sys.argv[1]
+github_token = sys.argv[1]
 repo_name = sys.argv[2]
 new_branch = sys.argv[3]
 base_branch = sys.argv[4]
 
 username_url = "https://github.com/sivacloudops59"
 headers = {
-    "Authorization": f"token {token}",
+    "Authorization": f"token {github_token}",
     "Accept": "application/vnd.github+json"
 }
 
