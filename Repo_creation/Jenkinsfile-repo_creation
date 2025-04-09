@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'REPO_NAME', defaultValue: 'my-auto-repo', description: 'GitHub repository name')
-        string(name: 'BRANCH_NAME', defaultValue: 'dev', description: 'Branch to create')
+        string(name: 'REPO_NAME', defaultValue: '', description: 'GitHub repository name')
+        string(name: 'BRANCH_NAME', defaultValue: '', description: 'Branch to create')
     }
 
     environment {
