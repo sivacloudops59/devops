@@ -21,7 +21,8 @@ headers = {
 
 data = {
     "name": repo_name,
-    "private": False  # Change to True for a private repo
+    "private": False,  # Change to True for a private repo
+    "auto_init": True
 }
 
 response = requests.post(url, headers=headers, json=data)
