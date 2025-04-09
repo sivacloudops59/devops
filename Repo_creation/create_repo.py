@@ -29,6 +29,9 @@ response = requests.post(url, headers=headers, json=data)
 
 if response.status_code == 201:
     print(f" Repository '{repo_name}' created successfully.")
+elif response.status_code == 422 and "name already exists" in response.text:
+    print(f"Repository '{repo_name}' already exists. Skipping creation.")
+    sys.exit(0)
 else:
     print(f" Failed to create repository. Status Code: {response.status_code}")
     try:
