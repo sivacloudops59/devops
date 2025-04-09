@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        def outputlog = sh(script: """venv/bin/python Repo_creation/create_branch.py "$GITHUB_TOKEN" "${params.REPO_NAME}" "${params.BRANCH_NAME}" """, returnStdout: true).trim()
+                        def outputlog = sh(script: """venv/bin/python Repo_creation/create_branch.py "$GITHUB_TOKEN" "${params.REPO_NAME}" "${params.BRANCH_NAME}"  main """, returnStdout: true).trim()
                         echo "Branch Creation Output:\n${outputlog}"
                     } catch (e) {
                         echo " Error during branch creation: ${e}"
