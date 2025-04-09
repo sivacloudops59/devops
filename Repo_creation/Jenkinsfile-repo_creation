@@ -24,11 +24,19 @@ pipeline {
         }
 
         stage('Create Repository') {
+            steps{
+
                   outputlog = sh(script:" python Repo_creation/create_repo.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
                   echo "${outputlog}"
+            }
         }
         stage('create Branch'){
-            outputlog= sh(script:" python Repo_creation/create_branch.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
+            steps{
+
+            
+               outputlog= sh(script:" python Repo_creation/create_branch.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
+            }
+
         }
     }
 }
