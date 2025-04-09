@@ -22,13 +22,12 @@ pipeline {
             }
         }
 
-        stage('Run Python Script') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    python create_repo.py --repo "$REPO_NAME" --branch "$BRANCH_NAME"
-                '''
-            }
+        stage('Create Repository') {
+                  outputlog = sh(script:" python Repo_creation/create_repo.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
+                  echo "${outputlog}"
+        }
+        stage('create Branch'){
+            outputlog= sh(script:" python Repo_creation/create_branch.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
         }
     }
 }
