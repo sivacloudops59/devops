@@ -28,12 +28,6 @@ pipeline {
                 script {
                     try {
                         def outputlog = sh(script: """venv/bin/python Repo_creation/create_repo.py "$GITHUB_TOKEN" "${params.REPO_NAME}" """, returnStdout: true).trim()
-                        if (outputlog==0){
-                            echo "Repository creation script completed"
-                        }
-                        else {
-                            error("Repo creation script failed with status ${outputlog}")
-                        }
                     } catch (e) {
                         echo " Error during repo creation: ${e}"
                         currentBuild.result = 'FAILURE'
