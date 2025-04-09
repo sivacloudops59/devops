@@ -1,3 +1,34 @@
-stage('SCM Checkout'){
-    
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'REPO_NAME', defaultValue: 'my-auto-repo', description: 'GitHub repository name')
+        string(name: 'BRANCH_NAME', defaultValue: 'dev', description: 'Branch to create')
+    }
+
+    environment {
+        GITHUB_TOKEN = credentials('github-token-id')       // Jenkins credential ID
+        GITHUB_USERNAME = 'your-github-username'            // hardcoded or env var
+    }
+
+    stages {
+        stage('Setup Python Environment') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install requests
+                '''
+            }
+        }
+
+        stage('Run Python Script') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python create_repo.py --repo "$REPO_NAME" --branch "$BRANCH_NAME"
+                '''
+            }
+        }
+    }
 }
