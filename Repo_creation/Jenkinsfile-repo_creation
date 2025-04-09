@@ -8,13 +8,13 @@ pipeline {
 
     environment {
         GITHUB_TOKEN = credentials('github_token')       // Jenkins credential ID
-        GITHUB_USERNAME = 'sivacloudops59'            // hardcoded or env var
+        GITHUB_USERNAME = 'sivacloudops59'
     }
 
     stages {
-        stage('setup python environment'){
+        stage('setup python environment') {
             steps {
-               script{
+                script {
                     sh '''
                         python3 -m venv venv
                         . venv/bin/activate
@@ -24,22 +24,30 @@ pipeline {
             }
         }
         stage('Create Repository') {
-            steps{
-                script{
-
-                    def outputlog = sh(script:"  venv/bin/python Repo_creation/create_repo.py ${GITHUB_TOKEN} ${repo_name}", returnStdout:true).trim()
-                  echo "${outputlog}"
+            steps {
+                script {
+                    try {
+                        def outputlog = sh(script: """venv/bin/python Repo_creation/create_repo.py "$GITHUB_TOKEN" "${params.REPO_NAME}" """, returnStdout: true).trim()
+                        echo "Repo Creation Output:\n${outputlog}"
+                    } catch (e) {
+                        echo " Error during repo creation: ${e}"
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
-        stage('create Branch'){
-            steps{
-                script{
-                    def outputlog= sh(script:" venv/bin/python Repo_creation/create_branch.py ${GITHUB_TOKEN} ${repo_name}", returnStdout:true).trim()
-                    echo "${outputlog}"
+        stage('Create Branch') {
+            steps {
+                script {
+                    try {
+                        def outputlog = sh(script: """venv/bin/python Repo_creation/create_branch.py "$GITHUB_TOKEN" "${params.REPO_NAME}" "${params.BRANCH_NAME}" """, returnStdout: true).trim()
+                        echo "Branch Creation Output:\n${outputlog}"
+                    } catch (e) {
+                        echo " Error during branch creation: ${e}"
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
-
         }
     }
 }
