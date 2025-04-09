@@ -14,12 +14,14 @@ pipeline {
 
     stages {
         stage('setup python environment'){
-            script{
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install requests
-                '''
+            steps {
+               script{
+                    sh '''
+                        python3 -m venv venv
+                        . venv/bin/activate
+                        pip install requests
+                    '''
+                }
             }
         }
         stage('Create Repository') {
