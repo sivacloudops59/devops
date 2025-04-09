@@ -1,8 +1,6 @@
 import sys
 import requests
 import json
-import os
-import urllib3
 
 # Usage: python create_branch.py <github_token> <repo_name> <new_branch_name> <base_branch>
 
@@ -15,28 +13,28 @@ repo_name = sys.argv[2]
 new_branch = sys.argv[3]
 base_branch = sys.argv[4]
 
-username_url = "https://github.com/sivacloudops59"
 headers = {
     "Authorization": f"token {github_token}",
     "Accept": "application/vnd.github+json"
 }
 
-# Step 1: Get username
-response = requests.get(username_url, headers=headers)
-if response.status_code != 200:
-    print(" Failed to fetch user info.")
+# Step 1: Get username from token
+user_resp = requests.get("https://api.github.com/user", headers=headers)
+if user_resp.status_code != 200:
+    print(f"Failed to fetch user info. Status Code: {user_resp.status_code}")
+    print(user_resp.text)
     sys.exit(1)
-username = response.json()["login"]
+username = user_resp.json()["login"]
 
 # Step 2: Get base branch SHA
 ref_url = f"https://api.github.com/repos/{username}/{repo_name}/git/ref/heads/{base_branch}"
-response = requests.get(ref_url, headers=headers)
-if response.status_code != 200:
-    print(f" Failed to fetch base branch '{base_branch}'")
-    print(response.json())
+ref_resp = requests.get(ref_url, headers=headers)
+if ref_resp.status_code != 200:
+    print(f"Failed to fetch base branch '{base_branch}'. Status Code: {ref_resp.status_code}")
+    print(ref_resp.text)
     sys.exit(1)
 
-sha = response.json()["object"]["sha"]
+sha = ref_resp.json()["object"]["sha"]
 
 # Step 3: Create new branch
 create_ref_url = f"https://api.github.com/repos/{username}/{repo_name}/git/refs"
@@ -44,10 +42,10 @@ data = {
     "ref": f"refs/heads/{new_branch}",
     "sha": sha
 }
+create_resp = requests.post(create_ref_url, headers=headers, json=data)
 
-response = requests.post(create_ref_url, headers=headers, json=data)
-if response.status_code == 201:
+if create_resp.status_code == 201:
     print(f"Branch '{new_branch}' created from '{base_branch}'")
 else:
-    print(f" Failed to create branch. Status: {response.status_code}")
-    print(response.json())
+    print(f"Failed to create branch. Status Code: {create_resp.status_code}")
+    print(create_resp.text)
