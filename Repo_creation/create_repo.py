@@ -12,7 +12,7 @@ if len(sys.argv) != 3:
 github_token = sys.argv[1]
 repo_name = sys.argv[2]
 
-url = "https://github.com/sivacloudops59"
+url = f"https://github.com/sivacloudops59"
 headers = {
     "Authorization": f'Bearer {github_token}',
     "Accept": "application/vnd.github+json"
@@ -25,7 +25,7 @@ data = {
 response = requests.post(url, headers=headers, json=data)
 
 if response.status_code == 200:
-    print(f" Repository '{repo_name}' created successfully.")
+        print(f" Repository '{repo_name}' created successfully.")
 else:
     print(f" Failed to create repository. Status Code: {response.status_code}")
     print("Response:", response.json())
