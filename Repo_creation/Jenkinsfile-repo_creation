@@ -27,7 +27,7 @@ pipeline {
             steps{
                 script{
 
-                    def outputlog = sh(script:"  venv/bin/python Repo_creation/create_repo.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
+                    def outputlog = sh(script:"  venv/bin/python Repo_creation/create_repo.py ${GITHUB_TOKEN} ${repo_name}", returnStdout:true).trim()
                   echo "${outputlog}"
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
         stage('create Branch'){
             steps{
                 script{
-                    def outputlog= sh(script:" venv/bin/python Repo_creation/create_branch.py ${GITHUB_PWD} ${repo_name}", returnStdout:true).trim()
+                    def outputlog= sh(script:" venv/bin/python Repo_creation/create_branch.py ${GITHUB_TOKEN} ${repo_name}", returnStdout:true).trim()
                     echo "${outputlog}"
                 }
             }
